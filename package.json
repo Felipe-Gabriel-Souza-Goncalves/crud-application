@@ -6,6 +6,10 @@
     "sqlite3": "^5.0.2"
   },
   "scripts": {
-    "start": ""
+    "devStart": "nodemon api/server.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
