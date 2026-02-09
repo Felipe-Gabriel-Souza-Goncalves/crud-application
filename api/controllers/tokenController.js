@@ -4,7 +4,7 @@ export class TokenController {
 
 
   static async create(req, res) {
-    const { name, email } = req.body
+    const { name, email, password } = req.body
 
     if (!name || !email) {
       return res.status(400).json({ error: 'Nome e email são obrigatórios' })
@@ -28,7 +28,5 @@ export class TokenController {
   static async delete(req, res) {
     res.json(users)
   }
-
-
 
 }

@@ -1,6 +1,42 @@
+#main-container:not(form){
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  position: relative;
+}
+
+#login{border-radius: 0.75rem 0 0 0.75rem;}
+#cadastro{border-radius: 0 0.75rem 0.75rem 0 ;}
+
+#div-barrier{
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: rgb(19, 26, 41);
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+#popupIlustrativo{
+  background-color: rgba(17, 24, 39, 1);
+  color: white;
+  border-radius: 6px;
+  border: 1px solid #faf9f9;
+  padding: 5px;
+  height: fit-content;
+  width: 176px;
+  text-align: center;
+  transition: opacity 0.3s;
+
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+}
+
 /* From Uiverse.io by Yaya12085 */ 
 .form-container {
   width: 320px;
+  height: 480px;
   border-radius: 0.75rem;
   background-color: rgba(17, 24, 39, 1);
   padding: 2rem;
@@ -49,7 +85,7 @@
   display: flex;
   justify-content: flex-end;
   font-size: 0.75rem;
-  line-height: 1rem;
+  line-height: 1.5rem;
   color: rgba(156, 163, 175,1);
   margin: 8px 0 14px 0;
 }
@@ -103,10 +139,11 @@
 
 .social-icons .icon {
   border-radius: 0.125rem;
-  padding: 0.75rem;
+  padding: 0.25rem;
   border: none;
   background-color: transparent;
-  margin-left: 8px;
+  margin: 0.5rem 0.75rem;
+  cursor: pointer;
 }
 
 .social-icons .icon svg {

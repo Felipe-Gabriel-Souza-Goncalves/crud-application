@@ -1,29 +1,72 @@
 import db from '../db.js'
+import bycript from "bcrypt"
 
 export class UserController {
 
-  static create(req, res) {
-    const { name, email } = req.body
+  static async create(req, res) {
+    const { name, email, password } = req.body
 
-    if (!name || !email) {
-      return res.status(400).json({ error: 'Nome e email são obrigatórios' })
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: 'Algum campo não foi inserido' })
     }
 
-    // verificar se já existe
-    // const userExists = db
-    //   .prepare('SELECT * FROM users WHERE email = ?')
-    //   .get(email)
+    if (typeof(name) !== "string" ||
+        typeof(email) !== "string" || 
+        typeof(password) !== "string") {
+      return res.status(400).json({ error: 'Envio de informações incompatível' })
+    }
 
-    // if (userExists) {
-    //   return res.status(400).json({ error: 'Usuário já existe' })
-    // }
+    const usuario = db
+      .prepare('SELECT * FROM users WHERE email = ?')
+      .get(email)
 
-    // inserir
+    if(usuario){
+      return res.status(400).json({message: "Usuário já cadastrado com esses e-mail"})
+    }
+
+
+    const salt = await bycript.genSalt(10)
+    const passwordSalted = await bycript.hash(password, salt)
+    
     db
-      .prepare('INSERT INTO users (name, email) VALUES (?, ?)')
-      .run(name, email)
+      .prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)')
+      .run(name, email, passwordSalted)
 
     res.status(201).json({ message: 'Usuário criado' })
+  }
+
+
+
+
+  static async login(req, res){
+    try {
+      const { name, password } = req.body
+  
+      if (!name || !password) { // FUTURAMENTE TERÁ E-MAIL
+        return res.status(400).json({ error: 'Algum campo não foi inserido' })
+      }
+  
+      const usuario = 
+        db.prepare(`
+          SELECT * FROM users WHERE name = ?
+        `).get([name])
+  
+      if(!usuario){
+        return res.status(404).json({ message: "Usuário não encontrado"})
+      } 
+  
+      const samePassword = await bycript.compare(password, usuario.password)
+
+      if(samePassword){
+        return res.status(200).json({message: `Bem-vindo, ${usuario.name}`})
+      } else{
+        return res.status(401).json({message: `Acesso negado`})
+      }
+  
+    } catch (error) {
+      return res.status(500).json({message: "Erro interno no servidor", erro: error}) 
+    }
+
   }
 
 

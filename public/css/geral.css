@@ -19,6 +19,11 @@ main{
   filter: brightness(0) saturate(100%) invert(100%) sepia(46%) saturate(390%) hue-rotate(144deg) brightness(105%) contrast(98%);
 }
 
+button:not(button:disabled){
+  cursor: pointer;
+}
+
+
 /*  */
 /* SIDEBAR */
 /*  */
