@@ -33,3 +33,7 @@ function mudarCor(cor){
 function salvarPrefencias(){
 
 }
+
+function logout(){
+  
+}

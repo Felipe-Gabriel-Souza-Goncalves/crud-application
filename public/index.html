@@ -18,12 +18,12 @@
         <p class="title">Login</p>
         <form class="form" id="form-login">
           <div class="input-group">
-            <label for="username">Usuário</label>
-            <input type="text" name="username" id="name-login" placeholder="" />
+            <label for="name-login">Usuário</label>
+            <input type="text" id="name-login" required />
           </div>
           <div class="input-group">
-            <label for="password">Senha:</label>
-            <input type="password" name="password" id="password-login" placeholder="" />
+            <label for="password-login">Senha:</label>
+            <input type="password" id="password-login" required minlength="6" />
             <div class="forgot">
               <a rel="noopener noreferrer" href="#">Esqueceu a senha?</a>
             </div>
@@ -72,16 +72,16 @@
         <p class="title">Cadastro</p>
         <form class="form" id="form-cadastro">
           <div class="input-group">
-            <label for="username">Usuário</label>
-            <input type="text" name="username" id="name-cadastro" placeholder="" />
+            <label for="name-cadastro">Usuário</label>
+            <input type="text" id="name-cadastro" required />
           </div>
           <div class="input-group">
-            <label for="email">E-mail</label>
-            <input type="email" name="email" id="email-cadastro" placeholder="" />
+            <label for="email-cadastro">E-mail</label>
+            <input type="email" id="email-cadastro" required />
           </div>
           <div class="input-group">
-            <label for="password">Senha</label>
-            <input type="password" name="password" id="password-cadastro" placeholder="" />
+            <label for="password-cadastro">Senha (minímo de 6 caracteres)</label>
+            <input type="password" id="password-cadastro" required minlength="6"/>
           </div>
           <button class="sign" onclick="cadastrar()">Cadastrar</button>
         </form>

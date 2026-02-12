@@ -1,0 +1,39 @@
+body{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#container-tabela{
+  max-height: 80vh;
+  max-width: 85vw;
+  overflow: auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+table{
+  text-align: center;
+  border-collapse: collapse;
+}
+table tr, table td{
+  border-collapse: collapse;
+  border: 1px solid darkgray;
+}
+
+table tr:not(thead tr):hover{
+  background-color: rgb(202, 206, 209) ;
+}
+
+table td{
+  padding: 4px 6px;
+}
+
+table thead{
+  background-color: black;
+  color: rgb(234, 235, 236);
+}

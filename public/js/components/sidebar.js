@@ -27,6 +27,12 @@ class Sidebar extends HTMLElement{
                 <span class="text">Funcionários</span>
              </li>` : ""
           }
+
+          <li id="item-user">
+            <span class="icon"><img src="img/usuario.svg"></span>
+            <span class="text">Você! </span>
+          </li>
+
         </ul>
       </div>
     `

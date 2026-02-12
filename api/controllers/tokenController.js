@@ -1,4 +1,4 @@
-
+import jwt from 'jsonwebtoken'
 export class TokenController {
 
 
@@ -6,15 +6,15 @@ export class TokenController {
   static async create(req, res) {
     const { name, email, password } = req.body
 
-    if (!name || !email) {
+    if (!name || !email, !password) {
       return res.status(400).json({ error: 'Nome e email são obrigatórios' })
     }
 
-    if (userExists) {
-      return res.status(400).json({ error: 'Usuário já existe' })
-    }
 
-    res.status(201).json({ message: 'Usuário criado' })
+    const user = {name, email}
+
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn: "60s"})
+    res.status(201).json({accessToken: token, message: 'Usuário criado' })
   }
 
 

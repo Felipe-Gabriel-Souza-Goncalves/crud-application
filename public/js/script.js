@@ -11,6 +11,30 @@ const nameCadastro = document.getElementById("name-cadastro")
 const emailCadastro = document.getElementById("email-cadastro")
 const passwordCadastro = document.getElementById("password-cadastro")
 
+function filtrarInputVazio(htmlElement){
+  let valido = true;
+
+  if(htmlElement.id === "password-cadastrar" && 
+     htmlElement.value.trim().length < 6)
+  {
+    valido = false
+  }
+
+  if(typeof(htmlElement.value) != "string") valido = false
+  if(!htmlElement.value.trim()) valido = false
+
+  decoracaoInput(htmlElement)
+  if(valido === false){
+    return false
+  }
+
+  return true
+}
+
+function decoracaoInput(htmlInput){
+
+}
+
 function logar(){
   if(!nameLogin.value.trim() || !passwordLogin.value.trim()){
     return
@@ -43,16 +67,16 @@ function logar(){
 }
 
 function cadastrar(){
-  if(!nameCadastro.value.trim() ||
-     !passwordCadastro.value.trim() || 
-     !emailCadastro.value.trim()){
-    return
-  }
+
+  if(!filtrarInputVazio(nameCadastro)) return
+  if(!filtrarInputVazio(emailCadastro)) return
+  if(!filtrarInputVazio(passwordCadastro)) return
+
   
   const bodyEnvio = {
-    name: nameCadastro.value,
-    email: emailCadastro.value,
-    password: passwordCadastro.value,
+    name: nameCadastro.value.trim(),
+    email: emailCadastro.value.trim(),
+    password: passwordCadastro.value.trim(),
   }
 
   fetch("http://localhost:3000/users/", {
@@ -75,21 +99,17 @@ function cadastrar(){
 
 function trocarForm(form){
   if(form === 'login'){
-    barrier.style.left = "unset"
-    barrier.style.right = "0"
-    
+    barrier.style.transform = "translateX(0%)"
     barrier.style.borderRadius = "0 0.75rem 0.75rem 0 "
     
   } else if(form === 'cadastro'){
-    barrier.style.left = "0"
-    barrier.style.right = "unset"
-
+    barrier.style.transform = "translateX(-100%)"
     barrier.style.borderRadius = "0.75rem 0 0 0.75rem"
 
   } 
 }
 
-
+// Aparecer popup dos ícones ilustrativos
 const popup = document.getElementById("popupIlustrativo")
 document.querySelectorAll(".icon").forEach(el =>{
   el.addEventListener('mouseenter', (event) => {
@@ -107,5 +127,12 @@ document.querySelectorAll(".icon").forEach(el =>{
   })
 })
 
+
+const inputs = document.querySelectorAll(".input-group input")
+inputs.forEach(input =>{
+  input.addEventListener("focusout", decoracaoInput(input))
+})
+
+// Não reiniciar a página ao enviar 
 login.addEventListener('submit', (e) => {e.preventDefault()})
 cadastro.addEventListener('submit', (e) => {e.preventDefault()})

@@ -5,6 +5,15 @@ const db = new Database('./database.sqlite', {
 });
  
 // db.prepare(`
+//   CREATE TABLE IF NOT EXISTS refreshTokens (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     token TEXT UNIQUE NOT NULL,
+//     creation DATETIME NOT NULL,
+//     duration
+//   )  
+// `)
+
+// db.prepare(`
 //   ALTER TABLE users ADD COLUMN password TEXT NOT NULL
 // `).run();
 
