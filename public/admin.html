@@ -12,17 +12,25 @@
   <custom-sidebar></custom-sidebar>
 
   <div id="container-tabela">
+    <div id="opcoesTabela">
+      <img src="img/desfazer.svg" width="30" alt="Desfazer" onclick="alternarSelecaoFuncionario()">
+      <img src="img/editar.svg" width="30" alt="Editar" onclick="atualizarUsuarios()">
+      <img src="img/deletar.svg" width="30" alt="Deletar" onclick="deletarUsuarios()">
+    </div>
     <table>
       <thead>
-        <td>&nbsp;</td>
-        <td>Nome</td>
-        <td>E-mail</td>
-        <td>Cargo</td>
-        <td>Cadastrado em</td>
+        <tr>
+          <td></td>
+          <td>Nome</td>
+          <td>E-mail</td>
+          <td>Cargo</td>
+          <td>Cadastrado em</td>
+        </tr>
       </thead>
       <tbody id="tabela-funcionarios">
       </tbody>
     </table>
+    
   </div>
 
   <script src="js/geral.js"></script>

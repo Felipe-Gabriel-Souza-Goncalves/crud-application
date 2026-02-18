@@ -11,9 +11,20 @@ body{
   max-width: 85vw;
   overflow: auto;
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+#opcoesTabela{
+  width: 100%;
+  gap: 1em;
+  text-align: end;
+}
+#opcoesTabela img{
+  cursor: pointer;
+  filter: brightness(0) saturate(100%)
 }
 
 table{
@@ -26,14 +37,52 @@ table tr, table td{
 }
 
 table tr:not(thead tr):hover{
+  cursor: pointer;
   background-color: rgb(202, 206, 209) ;
 }
 
+
 table td{
   padding: 4px 6px;
+  text-align: center;
+  user-select: none;
 }
 
 table thead{
   background-color: black;
   color: rgb(234, 235, 236);
+}
+
+
+td:first-of-type{padding: 0px 6px;}
+.colunaFuncionario:first-of-type{width: 50px;}
+
+.checkFuncionario{display: none;}
+#opcoesTabela{visibility: hidden;}
+
+table thead tr:first-of-type td{
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+
+
+.checkFuncionario{
+  cursor: pointer;
+  width: 20px;
+  aspect-ratio: 1/1;
+  margin: auto;
+}
+
+.inputFuncionario{
+  border: 0;
+  max-width: 140px;
+  overflow-x: auto;
+  background-color: transparent;
+  font-size: 1em;    
+  outline: 0;
+}
+
+.inputFuncionario.ativo{
+  border: 1px solid;
 }

@@ -1,3 +1,5 @@
+// posivelmente inutilizado
+
 import jwt from 'jsonwebtoken'
 export class TokenController {
 
@@ -6,7 +8,7 @@ export class TokenController {
   static async create(req, res) {
     const { name, email, password } = req.body
 
-    if (!name || !email, !password) {
+    if (!name || !email) {
       return res.status(400).json({ error: 'Nome e email são obrigatórios' })
     }
 

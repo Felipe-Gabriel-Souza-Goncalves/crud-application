@@ -1,3 +1,5 @@
+const url = "http://localhost:3000"
+
 const cores = {
   vermelho: "",
   verde: "",

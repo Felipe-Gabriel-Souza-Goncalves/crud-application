@@ -3,3 +3,4 @@ node_modules
 .devdbrc
 database.sqlite
 public/img/url_icons.txt
+dummyPassword.txt

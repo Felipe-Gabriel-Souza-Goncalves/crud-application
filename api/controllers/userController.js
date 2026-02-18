@@ -1,5 +1,6 @@
 import db from '../db.js'
 import bycript from "bcrypt"
+import jwt from 'jsonwebtoken'
 
 export class UserController {
 
@@ -16,11 +17,11 @@ export class UserController {
       return res.status(400).json({ error: 'Envio de informações incompatível' })
     }
 
-    const usuario = db
+    const user = db
       .prepare('SELECT * FROM users WHERE email = ?')
       .get(email)
 
-    if(usuario){
+    if(user){
       return res.status(400).json({message: "Usuário já cadastrado com esses e-mail"})
     }
 
@@ -28,9 +29,38 @@ export class UserController {
     const salt = await bycript.genSalt(10)
     const passwordSalted = await bycript.hash(password, salt)
     
-    db
-      .prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)')
+    const result = db
+      .prepare("INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, 'Visitante', CURRENT_TIMESTAMP)")
       .run(name, email, passwordSalted)
+
+    
+    const userId = result.lastID;
+
+    const accessToken = jwt.sign(
+      { id: userId, email },
+      process.env.ACCESS_TOKEN,
+      { expiresIn: "15m" }
+    );
+
+    const refreshToken = jwt.sign(
+      { id: userId },
+      process.env.REFRESH_TOKEN,
+      { expiresIn: "7d" }
+    );
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      // sameSite: "strict",
+      maxAge: 15 * 60 * 1000
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      // sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+
 
     res.status(201).json({ message: 'Usuário criado' })
   }
@@ -40,33 +70,48 @@ export class UserController {
 
   static async login(req, res){
     try {
-      const { name, password } = req.body
-  
-      if (!name || !password) { // FUTURAMENTE TERÁ E-MAIL
-        return res.status(400).json({ error: 'Algum campo não foi inserido' })
-      }
-  
-      const usuario = 
-        db.prepare(`
-          SELECT * FROM users WHERE name = ?
-        `).get([name])
-  
-      if(!usuario){
-        return res.status(404).json({ message: "Usuário não encontrado"})
-      } 
-  
-      const samePassword = await bycript.compare(password, usuario.password)
+      const { email, password } = req.body
 
-      if(samePassword){
-        return res.status(200).json({message: `Bem-vindo, ${usuario.name}`})
-      } else{
-        return res.status(401).json({message: `Acesso negado`})
-      }
-  
+      if (!email || !password) return res.status(400).json({ error: 'Algum campo não foi inserido' })
+
+      const user = db
+        .prepare(`SELECT * FROM users WHERE email = ?`)
+        .get(email)
+
+      if(!user) return res.status(404).json({ message: "Usuário não encontrado"}) 
+      const samePassword = await bycript.compare(password, user.password)
+
+      if(!samePassword) return res.status(401).json({message: "Senha incorreta"})
+
+      // const accessToken = jwt.sign(
+      //   { id: user.id, email: user.email },
+      //   process.env.ACCESS_TOKEN,
+      //   { expiresIn: "15m" }
+      // );
+
+      const refreshToken = jwt.sign(
+        { id: user.id },
+        process.env.REFRESH_TOKEN,
+        { expiresIn: "7d" }
+      );
+
+      // res.cookie("accessToken", accessToken, {
+      //   httpOnly: true,
+      //   maxAge: 15 * 60 * 1000
+      // });
+
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000
+      });
+
+      return res.status(200).json({
+        message: `Bem-vindo, ${user.name}`
+      })
+
     } catch (error) {
-      return res.status(500).json({message: "Erro interno no servidor", erro: error}) 
+      return res.status(500).json({message: "Erro interno no servidor"})
     }
-
   }
 
 
@@ -98,25 +143,47 @@ export class UserController {
 
 
 
-  static update(req, res) {
-    const { id } = req.params
-    const { name, email } = req.body
+  static updateMultiple(req, res) {
+    const changes = req.body.changes
+    if(!changes) return res.status(403).json({error: "Não há índices para deletar"})
 
-    const result = db
-      .prepare('UPDATE users SET name = ?, email = ? WHERE id = ?')
-      .run(name, email, id)
-
-    if (result.changes === 0) {
-      return res.status(404).json({ error: 'Usuário não encontrado' })
+    try {
+      const query = db
+        .prepare(`UPDATE users SET name = @name, role = @role WHERE id = @id`)
+  
+      const enviarMudancas = db.transaction((changes) =>{
+        for(const change of changes){
+          query.run(change)
+        }
+      })
+  
+      enviarMudancas(changes)
+  
+      return res.status(200).json({message: "Usuários atualizados com sucesso"})
+    } catch (error) {
+      return res.status(500).json({error: error})
     }
-
-    res.json({ message: 'Usuário atualizado' })
   }
 
 
 
+  static deleteMultiple(req, res) {
+    const ids = req.body.ids
+    if(!ids) return res.status(403).json({error: "Não há índices para deletar"})
+
+    const placeholder = ids.map(() => '?').join(',')
+    
+    const result = db
+      .prepare(`DELETE FROM users WHERE id in (${placeholder})`)
+      .run(...ids)
+
+
+    res.status(204).json({ message: 'Usuários removidos' })
+  }
+
+
   static delete(req, res) {
-    const { id } = req.params
+    
 
     const result = db
       .prepare('DELETE FROM users WHERE id = ?')
@@ -128,4 +195,15 @@ export class UserController {
 
     res.json({ message: 'Usuário removido' })
   }
+
+
+
+
+  static logout(req, res) {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    res.json({ message: "Logout realizado" });
+  }
+
 }

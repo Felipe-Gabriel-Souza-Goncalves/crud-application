@@ -1,4 +1,14 @@
-# Versão atual [v1.3]
+# Versão atual [v1.4]
+
+## [v1.4] - 18/02/2026
+- Autorização com token de acesso JWT
+- Tokens jwt em cookies
+- Atualizar informações via página admin
+- Deletar usuários via página admin
+- Campos automáticos de cargo e data do cadastro
+- Login se baseia no e-mail, não mais no nome
+- Seleção de linhas na tabela para gerenciar (atualizar/deletar)
+
 
 ## [v1.3] - 11/02/2026
 - Configurações de ambiente

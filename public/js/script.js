@@ -4,7 +4,7 @@ const login = document.getElementById("form-login")
 const cadastro = document.getElementById("form-cadastro")  
 
 
-const nameLogin = document.getElementById("name-login")
+const emailLogin = document.getElementById("email-login")
 const passwordLogin = document.getElementById("password-login")
 
 const nameCadastro = document.getElementById("name-cadastro")
@@ -23,7 +23,7 @@ function filtrarInputVazio(htmlElement){
   if(typeof(htmlElement.value) != "string") valido = false
   if(!htmlElement.value.trim()) valido = false
 
-  decoracaoInput(htmlElement)
+  // decoracaoInput(htmlElement)
   if(valido === false){
     return false
   }
@@ -31,22 +31,22 @@ function filtrarInputVazio(htmlElement){
   return true
 }
 
-function decoracaoInput(htmlInput){
+// function decoracaoInput(htmlInput){
 
-}
+// }
 
 function logar(){
-  if(!nameLogin.value.trim() || !passwordLogin.value.trim()){
+  if(!emailLogin.value.trim() || !passwordLogin.value.trim()){
     return
   }
 
   const bodyEnvio = {
-    name: nameLogin.value,
+    email: emailLogin.value,
     password: passwordLogin.value
   }
 
   try {
-    fetch("http://localhost:3000/users/login", {
+    fetch(`${url}/users/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json"
@@ -79,7 +79,7 @@ function cadastrar(){
     password: passwordCadastro.value.trim(),
   }
 
-  fetch("http://localhost:3000/users/", {
+  fetch(`${url}/users/`, {
     method: "POST",
     headers: {
       "Content-type": "application/json"
