@@ -16,7 +16,6 @@ async function atualizarUsuarios(){
     let rowIndex = []
     Array.from(checkboxFuncionarios)
          .map((checkbox, i) =>{
-            console.log(checkbox)
             if(checkbox.checked) {
               rowIndex.push({index: i, value: checkbox.value})
             }

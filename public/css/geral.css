@@ -1,3 +1,28 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-primary: #111827;
+  --text-secondary: #5e5e5e;
+  --svg-filter: brightness(0) saturate(100%) invert(0%) sepia(10%) saturate(4002%) hue-rotate(13deg) brightness(97%) contrast(78%);
+  
+  --accent: #3b82f6; /* Pode ser trocado com tema */
+  --accentOnlyLight: var(--accent);
+  --accentGradientDarker: #1859c0;
+  --accentGradientLighter: #51dfff;
+}
+
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: var(--text-primary);
+  --svg-filter: brightness(0) saturate(100%) invert(100%) sepia(46%) saturate(390%) hue-rotate(144deg) brightness(105%) contrast(98%);
+
+  --accentOnlyLight: var(--bg-primary);
+
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -8,15 +33,16 @@
 body {
   display: flex;
   height: 100vh;
-  background: #f4f6f8;
+  background: var(--bg-secondary);
 }
 
 main{
   margin-left: 75px;
 }
 
-.icon img{
-  filter: brightness(0) saturate(100%) invert(100%) sepia(46%) saturate(390%) hue-rotate(144deg) brightness(105%) contrast(98%);
+.icon img,
+img[src$='.svg']{
+  filter: var(--svg-filter);
 }
 
 button:not(button:disabled){
@@ -78,3 +104,38 @@ button:not(button:disabled){
 /*  */
 /*  */
 /*  */
+
+/*  */
+/* Toggle Dark-mode */
+/*  */
+
+toggle-darkmode{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+toggle-darkmode img{
+  filter: var(--svg-filter);
+  cursor: pointer;
+}
+
+/*  */
+/*  */
+/*  */
+
+.container-opcoes-cores{
+  bottom: 12px;
+  right: 12px;
+  position: absolute;
+  display: flex;
+  background: var(--bg-primary);
+  padding: 8px;
+  gap: 0.25em;
+}
+
+.opcao-cor{
+  width: 48px;
+  height: 48px;
+  border: 3px solid #dddddd;
+  border-radius: 12px;
+}

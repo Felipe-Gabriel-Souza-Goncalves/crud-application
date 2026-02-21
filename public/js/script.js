@@ -128,10 +128,10 @@ document.querySelectorAll(".icon").forEach(el =>{
 })
 
 
-const inputs = document.querySelectorAll(".input-group input")
-inputs.forEach(input =>{
-  input.addEventListener("focusout", decoracaoInput(input))
-})
+// const inputs = document.querySelectorAll(".input-group input")
+// inputs.forEach(input =>{
+//   input.addEventListener("focusout", decoracaoInput(input))
+// })
 
 // Não reiniciar a página ao enviar 
 login.addEventListener('submit', (e) => {e.preventDefault()})

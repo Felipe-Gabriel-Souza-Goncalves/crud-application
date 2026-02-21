@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin</title>
-
   <link rel="stylesheet" href="css/geral.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
@@ -13,7 +12,8 @@
 
   <div id="container-tabela">
     <div id="opcoesTabela">
-      <img src="img/desfazer.svg" width="30" alt="Desfazer" onclick="alternarSelecaoFuncionario()">
+      <img src="img/desfazer.svg" width="30" alt="Desfazer" 
+           onclick="alternarSelecaoFuncionario(); pegarTodosFuncionarios()">
       <img src="img/editar.svg" width="30" alt="Editar" onclick="atualizarUsuarios()">
       <img src="img/deletar.svg" width="30" alt="Deletar" onclick="deletarUsuarios()">
     </div>
@@ -37,5 +37,7 @@
   <script src="js/admin.js"></script>
   <script src="js/components/sidebar.js"></script>
 
+  <toggle-darkmode></toggle-darkmode>
+  <script src="js/components/darkmode.js"></script>
 </body>
 </html>

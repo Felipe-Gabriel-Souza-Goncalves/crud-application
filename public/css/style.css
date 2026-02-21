@@ -13,13 +13,24 @@
   left: 50%;
   width: 50%;
   height: 100%;
-  background-color: rgb(19, 26, 41);
   border-radius: 0 0.75rem 0.75rem 0;
   transition: 0.7s;
+
+  overflow: hidden;
+
+}
+#barrier-color{
+  transform: translate(-32.5%, -15%);
+  width: 720px;
+  height: 720px;
+  background: linear-gradient(0deg, var(--accentGradientDarker),var(--accentGradientLighter));
+
+  transform-origin: 17.5% 35%;
+  animation: rotate 10s infinite;
 }
 
 #popupIlustrativo{
-  background-color: rgba(17, 24, 39, 1);
+  background-color: var(--accentOnlyLight);
   color: white;
   border-radius: 6px;
   border: 1px solid #faf9f9;
@@ -39,9 +50,10 @@
   width: 320px;
   height: 480px;
   border-radius: 0.75rem;
-  background-color: rgba(17, 24, 39, 1);
+  /* background-color: rgba(17, 24, 39, 1); */
+  background-color: var(--bg-primary);
   padding: 2rem;
-  color: rgba(243, 244, 246, 1);
+  color: var(--text-primary);
 }
 
 .title {
@@ -49,6 +61,7 @@
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
+  color: var(--text-secondary);
 }
 
 .form {
@@ -74,13 +87,13 @@
   border-radius: 0.375rem;
   border: 1px solid rgba(55, 65, 81, 1);
   outline: 0;
-  background-color: rgba(17, 24, 39, 1);
+  background-color: var(--bg-secondary);
   padding: 0.75rem 1rem;
-  color: rgba(243, 244, 246, 1);
+  color: var(--text-primary);
 }
 
 .input-group input:focus {
-  border-color: rgba(167, 139, 250);
+  border-color: var(--accent);
 }
 
 .forgot {
@@ -93,7 +106,7 @@
 }
 
 .forgot a,.signup a {
-  color: rgba(243, 244, 246, 1);
+  color: var(--text-primary);
   text-decoration: none;
   font-size: 14px;
 }
@@ -105,10 +118,10 @@
 .sign {
   display: block;
   width: 100%;
-  background-color: rgba(167, 139, 250, 1);
+  background-color: var(--accent);
   padding: 0.75rem;
   text-align: center;
-  color: rgba(17, 24, 39, 1);
+  color: white;
   border: none;
   border-radius: 0.375rem;
   font-weight: 600;
@@ -155,7 +168,7 @@
 .social-icons .icon svg {
   height: 1.25rem;
   width: 1.25rem;
-  fill: #fff;
+  filter: var(--svg-filter);
 }
 
 .signup {
@@ -176,4 +189,14 @@
   25%{transform: translateX(-5px);}
   75%{transform: translateX(5px);}
   100%{transform: translateX(0);}
+}
+
+@keyframes barrier {
+  0%{background: linear-gradient(0deg, #3278e9, #65d3ff);}
+
+}
+
+@keyframes rotate {
+  from{rotate: 0deg;}
+  to{rotate: 360deg;}
 }

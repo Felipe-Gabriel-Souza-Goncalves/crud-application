@@ -1,4 +1,13 @@
-# Versão atual [v1.4]
+# Versão atual [v1.5]
+
+## [v1.5] - 21/02/2026
+- Modo escuro/claro
+- Mudança de temas do site:
+  - Azul (padrão)
+  - Vermelho
+  - Verde
+  - Roxo
+- Modo escuro/claro pega do dispositivo na primeira visita
 
 ## [v1.4] - 18/02/2026
 - Autorização com token de acesso JWT

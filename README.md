@@ -5,6 +5,7 @@ O projeto tem como intuito o estudo de vários conceitos que podem ser utilizado
 - Banco de dados (SQLite)
 - Autorização e tokens (JWT)
 - Processamento server-side usando microframework (express)
+- Tokens em cookies
 Incluindo:
   - Routes
   - Controllers
