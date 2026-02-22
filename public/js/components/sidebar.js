@@ -7,7 +7,7 @@ class Sidebar extends HTMLElement{
             <span class="icon"><img src="img/home.svg"></span>
             <span class="text">Home</span>
           </li>
-          <li>
+          <li onclick='abrirSecao("dashboard")'>
             <span class="icon"><img src="img/dashboard.svg"></span>
             <span class="text">Dashboard</span>
           </li>
@@ -15,14 +15,14 @@ class Sidebar extends HTMLElement{
             <span class="icon"><img src="img/configuração.svg"></span>
             <span class="text">Configurações</span>
           </li>
-          <li>
+          <li onclick='logout()'>
             <span class="icon"><img src="img/logout.svg"></span>
             <span class="text">Sair</span>
           </li>
 
           ${
             window.location.pathname.includes("/admin.html") ?
-            `<li>
+            `<li onclick='abrirSecao("funcionarios")'>
                 <span class="icon"><img src="img/grupo.svg"></span>
                 <span class="text">Funcionários</span>
              </li>` : ""

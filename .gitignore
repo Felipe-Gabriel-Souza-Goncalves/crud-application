@@ -4,3 +4,4 @@ node_modules
 database.sqlite
 public/img/url_icons.txt
 dummyPassword.txt
+public/js/components/popup.js

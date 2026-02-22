@@ -1,9 +1,12 @@
 body{
   display: flex;
-  width: 100vw;
-  height: 100vh;
   justify-content: center;
   align-items: center;
+}
+
+main{
+  padding: 24px;
+  margin-left: 70px;
 }
 
 #container-tabela{
@@ -24,7 +27,7 @@ body{
 }
 #opcoesTabela img{
   cursor: pointer;
-  filter: brightness(0) saturate(100%)
+  filter: var(--svg-filter)
 }
 
 table{
@@ -38,7 +41,7 @@ table tr, table td{
 
 table tr:not(thead tr):hover{
   cursor: pointer;
-  background-color: rgb(202, 206, 209) ;
+  background-color: var(--bg-primary);
 }
 
 
@@ -51,6 +54,16 @@ table td{
 table thead{
   background-color: black;
   color: rgb(234, 235, 236);
+}
+
+@supports(background-color: color-mix(in srgb, white 50%, black 50%)){
+  :root table thead{
+    background-color: var(--accent);
+  }
+
+  :root.dark table thead{
+    background-color: color-mix(in srgb, var(--accent) 15%, black);
+  }
 }
 
 
@@ -80,9 +93,21 @@ table thead tr:first-of-type td{
   overflow-x: auto;
   background-color: transparent;
   font-size: 1em;    
+  cursor: pointer;
   outline: 0;
+}
+.inputFuncionario:focus-visible{
+  outline: unset;
 }
 
 .inputFuncionario.ativo{
   border: 1px solid;
+}
+
+.cargosFuncionario{
+    background-color: color-mix(in srgb, var(--accent) 75%, transparent);
+    color: white;
+    border-color: white;
+    border-radius: 4px;
+    padding: 3px;
 }

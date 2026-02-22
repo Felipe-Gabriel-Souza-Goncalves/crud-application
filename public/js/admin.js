@@ -6,6 +6,18 @@ const checkboxFuncionarios = document.getElementsByClassName("checkFuncionario")
 const nomesInput = document.getElementsByClassName("inputFuncionario")
 const selectInput = document.getElementsByClassName("cargosFuncionario")
 
+const funcionarios = document.getElementById("funcionarios")
+const dashboard = document.getElementById("dashboard")
+
+function abrirSecao(idElement){
+  funcionarios.style.display = "none"
+  dashboard.style.display = "none"
+
+  if(idElement){
+    document.getElementById(idElement).style.display = 'block'
+  }
+}
+
 async function atualizarUsuarios(){
   if(!confirm("Deseja atualizar as inforamções desses usuários?")){
     return
@@ -280,3 +292,29 @@ function renderizarTabela(usuarios) {
 
 
 pegarTodosFuncionarios()
+
+
+//
+//
+// ------------- TEMPORARIO ----------------
+//
+//
+// Aparecer popup dos ícones ilustrativos
+const popup = document.getElementById("popupIlustrativo")
+document.querySelectorAll(".icon").forEach(el =>{
+  el.addEventListener('mouseenter', (event) => {
+    const x = event.clientX
+    const y = event.clientY
+
+    popup.style.top = (y - 60) + "px"
+    popup.style.left = (x - 88) + "px"
+
+    popup.style.opacity = "1"
+  })
+
+  el.addEventListener('mouseleave', () =>{
+    popup.style.opacity = "0"
+  })
+})
+
+abrirSecao('funcionarios')

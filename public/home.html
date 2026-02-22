@@ -7,24 +7,49 @@
 
   <link rel="stylesheet" href="css/geral.css">
   <link rel="stylesheet" href="css/home.css">
+
 </head>
 <body>
   <custom-sidebar></custom-sidebar>
 
   <main>
     <div id="dashboard">
-      <h1>lorem</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia molestiae alias debitis magni nesciunt illo voluptatibus eligendi blanditiis quaerat hic eveniet eos possimus commodi, nostrum, enim vitae provident beatae laborum?</p>
-      <img src="" alt="" width="200">
-      <img src="" alt="" width="200">
+      <div id="title-text">
+        <h1>Dashboard</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia molestiae alias debitis magni nesciunt illo voluptatibus eligendi blanditiis quaerat hic eveniet eos possimus commodi, nostrum, enim vitae provident beatae laborum?</p>
+      </div>
+    </div>
+    <hr>
+
+    <div id="container-graficos">
+      <div>
+        <canvas id="graf-barras"></canvas>
+      </div>
+      <div>
+        <canvas id="graf-linha"></canvas>
+      </div>
+      <div>
+        <canvas id="graf-pizza"></canvas>
+      </div>
     </div>
   </main>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script src="js/geral.js"></script>
   <script src="js/components/sidebar.js"></script>
 
   <toggle-darkmode></toggle-darkmode>
   <script src="js/components/darkmode.js"></script>
+
+  <script src="js/components/graficos.js"></script>
+
+  <color-picker></color-picker>
+  <script src="js/components/colorPicker.js"></script>
+
+
+
+
 </body>
 </html>

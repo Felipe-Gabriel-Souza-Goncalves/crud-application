@@ -1,4 +1,12 @@
-# Versão atual [v1.5]
+# Versão atual [v1.6]
+
+## [v1.6] - 22/02/2026
+- Dashboard ilustrativo com Chart.js no admin e home
+  - Barras
+  - Linha
+  - Pizza 
+- Mais mudanças ao trocar de tema (gráficos inclusos)
+- Leves alterações de design no admin/home incluindo o tema
 
 ## [v1.5] - 21/02/2026
 - Modo escuro/claro

@@ -4,7 +4,8 @@
   --text-primary: #111827;
   --text-secondary: #5e5e5e;
   --svg-filter: brightness(0) saturate(100%) invert(0%) sepia(10%) saturate(4002%) hue-rotate(13deg) brightness(97%) contrast(78%);
-  
+  --bg-input: var(--bg-primary);
+
   --accent: #3b82f6; /* Pode ser trocado com tema */
   --accentOnlyLight: var(--accent);
   --accentGradientDarker: #1859c0;
@@ -17,6 +18,7 @@
   --text-primary: #f1f5f9;
   --text-secondary: var(--text-primary);
   --svg-filter: brightness(0) saturate(100%) invert(100%) sepia(46%) saturate(390%) hue-rotate(144deg) brightness(105%) contrast(98%);
+  --bg-input: var(--bg-secondary);
 
   --accentOnlyLight: var(--bg-primary);
 
@@ -32,8 +34,14 @@
 
 body {
   display: flex;
-  height: 100vh;
+  max-width: 100vw;
+  min-height: 100vh;
   background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+input{
+  color: var(--text-primary);
+  accent-color: var(--accent);
 }
 
 main{
@@ -43,6 +51,10 @@ main{
 .icon img,
 img[src$='.svg']{
   filter: var(--svg-filter);
+}
+
+.sidebar img{
+  filter: brightness(0) saturate(100%) invert(100%) sepia(46%) saturate(390%) hue-rotate(144deg) brightness(105%) contrast(98%);
 }
 
 button:not(button:disabled){
@@ -110,9 +122,12 @@ button:not(button:disabled){
 /*  */
 
 toggle-darkmode{
-  position: absolute;
+  position: fixed;
   top: 12px;
   right: 12px;
+  background-color: var(--bg-secondary);
+  padding: 4px;
+  border-radius: 4px;
 }
 toggle-darkmode img{
   filter: var(--svg-filter);
@@ -126,10 +141,11 @@ toggle-darkmode img{
 .container-opcoes-cores{
   bottom: 12px;
   right: 12px;
-  position: absolute;
+  position: fixed;
   display: flex;
   background: var(--bg-primary);
   padding: 8px;
+  border-radius: 12px;
   gap: 0.25em;
 }
 
@@ -138,4 +154,25 @@ toggle-darkmode img{
   height: 48px;
   border: 3px solid #dddddd;
   border-radius: 12px;
+}
+
+/* */
+/* */
+/* */
+
+
+#container-graficos div{
+  width: 480px !important;
+  min-width: 300px;
+  display: flex;
+  flex-shrink: 1;
+}
+
+#container-graficos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  padding: 56px 0;
 }

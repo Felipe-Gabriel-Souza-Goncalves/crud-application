@@ -1,3 +1,4 @@
+
 const cores = {
   vermelho:{
     padrao: "#ef4444",
@@ -60,13 +61,21 @@ customElements.define('color-picker', PickColor)
 
 function mudarCor(cor){
   if(!cores[cor]) {
-    console.log("Cor inexistente")
+    console.log("Cor inexistente", cor)
     return
   }
 
   root.style.setProperty("--accent", cores[cor].padrao)
   root.style.setProperty("--accentGradientDarker", cores[cor].gradientDark)
   root.style.setProperty("--accentGradientLighter", cores[cor].gradientLight)
+
+  if(!window.location.pathname.includes("index.html")){
+    atualizarCorGrafico(graficoBarras)
+    atualizarCorGrafico(graficoLinha)
+    atualizarCorGrafico(graficoPizza)
+  }
 }
 
-mudarCor('verde')
+mudarCor('vermelho')
+
+// console.log(root.style.getPropertyValue('--accent'))
