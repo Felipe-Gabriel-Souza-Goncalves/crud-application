@@ -95,6 +95,11 @@ function createChart(element, type) {
   return grafico;
 }
 function atualizarCorGrafico(grafico){
+  if(!grafico){
+    console.log("Não há um elemento referenciando um gráfico")
+    return
+  }
+
   const dataset = grafico.data.datasets[0]
   const accent = getComputedStyle(document.documentElement)
                    .getPropertyValue("--accent").trim()
@@ -171,7 +176,6 @@ function atualizarCorGrafico(grafico){
       `color-mix(in srgb, ${accent} 70%, black)`
   }
 
-  console.log("Oi")
   grafico.update()
 }
 

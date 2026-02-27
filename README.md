@@ -1,6 +1,6 @@
 # CRUD-Application
 
-# Como iniciar?
+## Como iniciar?
 **(Necessário ter Node.js)**
 1. Faça o download do projeto ou git clone
 2. Abra o projeto aberto na IDE
@@ -20,6 +20,15 @@ Incluindo:
 - Variáveis de ambientes
 - hash de senhas (bycript)
 - Componentização de elementos HTML
+
+## Demonstrações
+### Login/Cadastro
+[![Página inicial](demonstrações/login-cadastro.mp4)](demonstrações/login-cadastro.mp4)
+<br>
+
+### Página do administrador
+[![Administrador](demonstrações/admin.mp4)](demonstrações/admin.mp4)
+
 
 **Alguns trechos de códigos prematuros tiveram auxílio de IA, mas foram revisados na implementação final**
 

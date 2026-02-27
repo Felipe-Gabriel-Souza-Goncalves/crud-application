@@ -176,3 +176,36 @@ toggle-darkmode img{
   gap: 2em;
   padding: 56px 0;
 }
+
+/*  */
+/*  */
+/*  */
+
+custom-popup{
+  position: fixed;
+  bottom: 12px;
+  display: flex;
+  width: 25%;
+  gap: 1em;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  left: 37.5%;
+  animation: appearPopup 5.2s infinite;
+}
+
+@keyframes appearPopup {
+  0%{
+    bottom: -75px;
+  }
+  5%{
+    bottom: 12px;
+  }
+  95%{
+    bottom: 12px;
+  }
+  100%{
+    bottom: -75px;
+  }
+}

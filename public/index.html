@@ -23,7 +23,13 @@
           </div>
           <div class="input-group">
             <label for="password-login">Senha:</label>
-            <input type="password" id="password-login" required minlength="6" />
+            <div class="input-group">
+              <input type="password" id="password-login" required minlength="6" />
+              
+              <div class="input-icon">
+                <img onclick="visibilidadeSenha(passwordLogin, visibilidadeLogin)" id="visibilidade-login" src="img/visibilidade off.svg" alt="Mostrar senha">
+              </div>
+            </div>
             <div class="forgot">
               <a rel="noopener noreferrer" href="#">Esqueceu a senha?</a>
             </div>
@@ -80,7 +86,12 @@
           </div>
           <div class="input-group">
             <label for="password-cadastro">Senha (minímo de 6 caracteres)</label>
-            <input type="password" id="password-cadastro" required minlength="6"/>
+            <div class="input-group">
+              <input type="password" id="password-cadastro" required minlength="6"/>
+              <div class="input-icon">
+                <img onclick="visibilidadeSenha(passwordCadastro, visibilidadeCadastro)" id="visibilidade-login" src="img/visibilidade off.svg" alt="Mostrar senha">
+              </div>
+            </div>
           </div>
           <button class="sign" onclick="cadastrar()">Cadastrar</button>
         </form>
@@ -140,5 +151,7 @@
 
     <color-picker></color-picker>
     <script src="js/components/colorPicker.js"></script>
+
+    <script src="js/components/popup.js"></script>
   </body>
 </html>

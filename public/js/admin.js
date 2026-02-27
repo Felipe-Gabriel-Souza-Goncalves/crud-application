@@ -1,3 +1,5 @@
+const currentPage = 'admin'
+
 const tableFuncionario = document.getElementById("tabela-funcionarios")
 const opcoesTabela = document.getElementById("opcoesTabela")
 const spanIndex = document.getElementsByClassName("idFuncionario")
@@ -5,6 +7,8 @@ const checkboxFuncionarios = document.getElementsByClassName("checkFuncionario")
 
 const nomesInput = document.getElementsByClassName("inputFuncionario")
 const selectInput = document.getElementsByClassName("cargosFuncionario")
+
+const statusTabela = document.getElementById("status-tabela")
 
 const funcionarios = document.getElementById("funcionarios")
 const dashboard = document.getElementById("dashboard")
@@ -43,11 +47,12 @@ async function atualizarUsuarios(){
       changesToDo.push(update)
     })
 
-    tableFuncionario.innerHTML = "Carregando..."
+    statusTabela.innerHTML = "Carregando..."
 
     const res = await fetch(`${url}/users/atualizar`, {
       method: "POST",
       headers: {
+        "Authorization": `Bearer ${accessToken}`,
         "Content-type" : "application/json",
       },
       credentials: "include",
@@ -76,12 +81,13 @@ async function deletarUsuarios(){
                         .filter(checkbox => checkbox.checked)
                         .map(checkbox => parseInt(checkbox.value))
   
-    tableFuncionario.innerHTML = "Carregando..."
+    statusTabela.innerHTML = "Carregando..."
     
     const res = await fetch(`${url}/users/deletar`, {
       method: "POST",
       headers: {
         "Content-type" : "application/json",
+        "Authorization": `Bearer ${accessToken}`
       },
       credentials: "include",
       body: JSON.stringify({ids: allIds})
@@ -139,7 +145,6 @@ function quantidadeLinhasSelecionadas(){
 
 async function pegarTodosFuncionarios() {
   mostrarCarregando()
-
   try {
     const usuarios = await buscarUsuarios()
 
@@ -160,16 +165,21 @@ async function pegarTodosFuncionarios() {
 ========================= */
 
 function mostrarCarregando() {
-  tableFuncionario.textContent = "Carregando..."
+  statusTabela.textContent = "Carregando..."
+  tableFuncionario.innerHTML = ''
+
 }
 
 function mostrarMensagem(msg) {
-  tableFuncionario.textContent = msg
+  statusTabela.textContent = msg
 }
 
 async function buscarUsuarios() {
   const res = await fetch(`${url}/users`, {
-    credentials: "include"
+    credentials: "include",
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
   })
   return await res.json()
 }
@@ -187,7 +197,7 @@ function formatarData(datetime) {
   if (!datetime || datetime.length !== 19) return ""
 
   const [ano, mes, dia] = datetime.slice(0, 10).split("-")
-  return `${dia}/${mes}/${ano}${datetime.slice(10, 16)} GMT-3`
+  return `${dia}/${mes}/${ano}${datetime.slice(10, 16)}`
 }
 
 function criarCelula(classe = "colunaFuncionario") {
@@ -286,12 +296,9 @@ function renderizarTabela(usuarios) {
     fragmento.appendChild(criarLinhaUsuario(user, index))
   })
 
-  tableFuncionario.textContent = ""
+  statusTabela.textContent = ""
   tableFuncionario.appendChild(fragmento)
 }
-
-
-pegarTodosFuncionarios()
 
 
 //
@@ -317,4 +324,27 @@ document.querySelectorAll(".icon").forEach(el =>{
   })
 })
 
-abrirSecao('funcionarios')
+async function refresh() {
+  const response = await fetch(`${url}/tokens/refresh`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    console.log("Não autenticado");
+    return;
+  }
+
+  const data = await response.json();
+  accessToken = data.accessToken;
+
+  console.log(accessToken)
+
+}
+
+(async() =>{
+  await refresh()
+  console.log(accessToken)
+  await pegarTodosFuncionarios()
+  abrirSecao('funcionarios')
+})();

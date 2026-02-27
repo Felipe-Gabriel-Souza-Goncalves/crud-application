@@ -1,8 +1,9 @@
 
+const currentPage = 'index'
+
 const barrier = document.getElementById("div-barrier")
 const login = document.getElementById("form-login") 
 const cadastro = document.getElementById("form-cadastro")  
-
 
 const emailLogin = document.getElementById("email-login")
 const passwordLogin = document.getElementById("password-login")
@@ -10,6 +11,9 @@ const passwordLogin = document.getElementById("password-login")
 const nameCadastro = document.getElementById("name-cadastro")
 const emailCadastro = document.getElementById("email-cadastro")
 const passwordCadastro = document.getElementById("password-cadastro")
+
+const visibilidadeCadastro = document.getElementById("visibilidade-cadastro")
+const visibilidadeLogin = document.getElementById("visibilidade-login")
 
 function filtrarInputVazio(htmlElement){
   let valido = true;
@@ -49,20 +53,26 @@ function logar(){
     fetch(`${url}/users/login`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
-      body: JSON.stringify({...bodyEnvio})
+      body: JSON.stringify({ ...bodyEnvio })
     })
-    .then(response => {
-      if(response.status == 200){
-        window.location.href = 'home.html'
-      } else{
-        alert("ERRO NO LOGIN")
+    .then(async response => {
+      const data = await response.json();
+
+      if (!response.ok) {
+        popupStatusCode(response.status, data.message);
+        return;
       }
-    })
+
+      if (data.redirectTo) {
+        window.location.href = data.redirectTo;
+      }
+    });
     
   } catch (error) {
-    
+    console.error(error)
+    popupStatusCode('Erro ao fazer login');
   }
 }
 
@@ -136,3 +146,17 @@ document.querySelectorAll(".icon").forEach(el =>{
 // Não reiniciar a página ao enviar 
 login.addEventListener('submit', (e) => {e.preventDefault()})
 cadastro.addEventListener('submit', (e) => {e.preventDefault()})
+
+function atualizarCorGrafico(){
+  return
+}
+
+function visibilidadeSenha(input, img){
+  if(input.type == 'password'){
+    input.type = 'text'
+    img.src = 'img/visibilidade on.svg'
+  } else{
+    input.type = 'password'
+    img.src = 'img/visibilidade off.svg'
+  }
+}

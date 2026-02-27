@@ -36,11 +36,11 @@ export class UserController {
     
     const userId = result.lastID;
 
-    const accessToken = jwt.sign(
-      { id: userId, email },
-      process.env.ACCESS_TOKEN,
-      { expiresIn: "15m" }
-    );
+    // const accessToken = jwt.sign(
+    //   { id: userId, email },
+    //   process.env.ACCESS_TOKEN,
+    //   { expiresIn: "15m" }
+    // );
 
     const refreshToken = jwt.sign(
       { id: userId },
@@ -48,21 +48,22 @@ export class UserController {
       { expiresIn: "7d" }
     );
 
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      // sameSite: "strict",
-      maxAge: 15 * 60 * 1000
-    });
+    // res.cookie("accessToken", accessToken, {
+    //   httpOnly: true,
+    //   // sameSite: "strict",
+    //   maxAge: 15 * 60 * 1000
+    // });
 
     res.cookie("refreshToken", refreshToken, {
+      sameSite: "Lax",
       httpOnly: true,
-      // sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: false,
     });
 
 
 
-    res.status(201).json({ message: 'Usuário criado' })
+    res.status(201).json({ message: 'Usuário criado'})
   }
 
 
@@ -81,13 +82,7 @@ export class UserController {
       if(!user) return res.status(404).json({ message: "Usuário não encontrado"}) 
       const samePassword = await bycript.compare(password, user.password)
 
-      if(!samePassword) return res.status(401).json({message: "Senha incorreta"})
-
-      // const accessToken = jwt.sign(
-      //   { id: user.id, email: user.email },
-      //   process.env.ACCESS_TOKEN,
-      //   { expiresIn: "15m" }
-      // );
+      if(!samePassword) return res.status(401).json({message: "E-mail ou senha incorreta"})
 
       const refreshToken = jwt.sign(
         { id: user.id },
@@ -95,24 +90,24 @@ export class UserController {
         { expiresIn: "7d" }
       );
 
-      // res.cookie("accessToken", accessToken, {
-      //   httpOnly: true,
-      //   maxAge: 15 * 60 * 1000
-      // });
-
       res.cookie("refreshToken", refreshToken, {
+        sameSite: "Lax",
         httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        secure: false,
       });
 
+
       return res.status(200).json({
-        message: `Bem-vindo, ${user.name}`
-      })
+        message: `Bem-vindo, ${user.name}`,
+        redirectTo: user.role === 'Administrador' ? '/admin.html' : '/home.html'
+      });
 
     } catch (error) {
       return res.status(500).json({message: "Erro interno no servidor"})
     }
   }
+
 
 
 
@@ -194,16 +189,6 @@ export class UserController {
     }
 
     res.json({ message: 'Usuário removido' })
-  }
-
-
-
-
-  static logout(req, res) {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-
-    res.json({ message: "Logout realizado" });
   }
 
 }

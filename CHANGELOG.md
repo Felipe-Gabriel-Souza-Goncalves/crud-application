@@ -1,4 +1,11 @@
-# Versão atual [v1.6]
+# Versão atual [v1.7]
+
+## [v1.7] - 27/02/2026
+- Visibilidade de senha (por padrão desligado)
+- Obrigatoriedade de token de acesso para funcionalidades admin
+- Correção de códigos envolvendo cookies
+- Demonstrações no README
+- Arrumado bug de mostrar status da tabela de funcionários erroneamente
 
 ## [v1.6] - 22/02/2026
 - Dashboard ilustrativo com Chart.js no admin e home

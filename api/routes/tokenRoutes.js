@@ -3,8 +3,8 @@ import { TokenController } from '../controllers/tokenController.js'
 
 const tokenRoutes = Router()
 
-tokenRoutes.post('/', TokenController.create)
-tokenRoutes.get('/', TokenController.refresh)
-tokenRoutes.delete('/', TokenController.delete)
+tokenRoutes.post('/refresh', TokenController.refresh)
+tokenRoutes.post('/authorization', TokenController.authorization)
+tokenRoutes.post('/delete', TokenController.logout)
 
 export default tokenRoutes

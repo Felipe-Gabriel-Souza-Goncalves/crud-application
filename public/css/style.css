@@ -72,6 +72,8 @@
   margin-top: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
+  position: relative;
+  width: 100%;
 }
 
 .input-group label {
@@ -79,6 +81,7 @@
   color: rgba(156, 163, 175, 1);
   margin-bottom: 4px;
 }
+
 
 .input-group input {
   z-index: 0;
@@ -88,7 +91,7 @@
   border: 1px solid rgba(55, 65, 81, 1);
   outline: 0;
   background-color: var(--bg-input);
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 3rem 0.75rem 1rem; /* espaço à direita para o ícone */
   color: var(--text-primary);
 }
 
@@ -102,6 +105,23 @@
   }
 }
 
+.input-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-40%);
+  cursor: pointer;
+}
+
+.input-icon img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+}
+
+.input-icon img:hover {
+  opacity: 1;
+}
 .forgot {
   display: flex;
   justify-content: flex-end;

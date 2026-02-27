@@ -69,7 +69,7 @@ function mudarCor(cor){
   root.style.setProperty("--accentGradientDarker", cores[cor].gradientDark)
   root.style.setProperty("--accentGradientLighter", cores[cor].gradientLight)
 
-  if(!window.location.pathname.includes("index.html")){
+  if(currentPage == 'admin' || currentPage == 'home'){
     atualizarCorGrafico(graficoBarras)
     atualizarCorGrafico(graficoLinha)
     atualizarCorGrafico(graficoPizza)
